@@ -1,0 +1,14 @@
+
+Trop de noms définis (identifiants), ils sont pas forcemment en rapport avec le domaine en plus.
+  -> faire un dictionnaire des données durant l'analyse du problème (basé sur l'énoncé)
+
+Trop de maps, au début c'était pertinent mais là il commence à y en avoir trop. Il n'y a pas forcemment de bénéfice je crois. D'un point de vue de la syntaxe, j'aurais préféré avoir une map read-only de telle sorte à pouvoir utiliser le subscript operator sans risque que ça ajoute quelque chose (du coup, comme dans mon cas j'utilise une std::map bah je passe par .at pour vérifier si la clé existe, sinon ça la crééerait avec [])
+  -> ne faire des maps que pour les cas ultra triviaux, et ne pas en abuser
+
+Pas assez d'abstraction, beaucoup de code dans le main qui est propre au langage.
+  -> ne pas oublier de faire une passe top-down programming dans le refactoring.
+
+On a passé beaucoup de temps (même si au final c'était intéressant, c'était un bon exercice)
+  -> essayer de faire une implémentation plus simple, tout en restant intéressante (mais faut pas abuser non plus)
+
+Utiliser git pour éviter de faire des backups à la MANO

@@ -1,0 +1,17 @@
+On aurait du analyser le problème plus longtemps, et faire un listing des vrais difficultés. De quoi il s'agit vraiment (quels sont les vrais problèmes à résoudre).
+  -> déceler les vrais problématiques techniques
+
+Après une première phase de bottom-up programming (où on découvre les capacités du langage pour résoudre les sous-problèmes, les problèmes indépendants du domaine), faire une deuxième passe où on réécrit en top-down programming.
+  -> convertir du "code" qui ne compile pas vers du code qui compile
+
+Ecrire des implémentations intéressantes (ça sert à rien d'écrire le code que n'importe quelle IA aurait pu générer). Un bon design, choix des noms appropriés, etc..
+  -> éviter de copy paste du code d'ailleurs, ou alors l'encapsuler
+
+Entrevoir les pires scénarios et les prévenir,
+plutôt que de gérer tous les cas particuliers + tester le code étranger pour voir ce qui est géré ou pas, ce qui lève une exception ou retourne un code d'erreur, etc..
+  -> Simplicité et information
+  -> Mettre en valeur le design plutôt que l'implémentation (gestion des erreurs, performances, ..)
+
+Faire plus de pseudocode programming process
+
+

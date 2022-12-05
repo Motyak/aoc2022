@@ -1,0 +1,7 @@
+
+prend beaucoup trop de temps à faire, mais surtout j'ai du recommencer à zéro parce que je perdais le fil de ce que je faisais et je ne comprenais plus les différentes structures de données passées à droite à gauche
+  -> modéliser direct le dictionnaire des données avec des objets ou structures de données claires.
+
+en python, surcharger les méthodes magiques permettant de print un objet et d'itérer dans un objet, afin de débugger via print plus efficacement
+
+

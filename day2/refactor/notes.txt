@@ -1,0 +1,7 @@
+
+Refaire les scripts d'automatisation avec makefile vu que maintenant j'ai plusieurs fichiers sources.
+  -> en fait j'ai meme pas besoin d'utiliser un make file, j'ai juste à adapter la ligne de commande pour build ne commentaire du fichier src main, pour que ça recompile tous les cpp dont il dépend. Il faut juste que le entr proc lorsqu'un fichier .cpp change
+    -> OK
+
+Réserver les noms rps::Move::ROCK, rps::Move::PAPER et rps::Move::SCISSORS, et indiquer en commentaire dans le .h qu'il faut les définir de notre côté en mettant les valeurs énumérés de notre choix.
+  -> OK

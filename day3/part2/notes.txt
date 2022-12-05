@@ -1,0 +1,21 @@
+
+
+
+
+To tell which item type is the right one
+  -> finding the one item type that is common between all three Elves in each group
+
+
+A group's rucksacks
+  -> a set of 3 lines (line -- rucksack)
+
+trouver le type qui est commun aux trois rucksacks du groupe
+  -> correspond au badge du groupe
+
+priority for a group items = priority of the group badge
+
+on veut faire la somme de toutes les priority
+
+
+
+

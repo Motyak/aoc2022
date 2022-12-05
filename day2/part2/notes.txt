@@ -1,0 +1,6 @@
+map qui associe un Outcome désiré à une map appropriée (losingMove, drawingMove ou winningMove)
+
+maps qui associent le Move de l'adversaire au Move à faire (pour avoir l'outcome correspondant à la map)
+losingMove
+drawingMove
+winningMove

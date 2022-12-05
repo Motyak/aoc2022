@@ -1,0 +1,2 @@
+
+Lecture du fichier, convertir chaque ligne en rucksack (contenant deux compartments, contenant chacun 12 items)

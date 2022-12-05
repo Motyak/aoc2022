@@ -1,0 +1,59 @@
+
+-----------------------------------
+OK
+-----------------------------------
+Lecture du fichier
+  -> est-ce qu'on est contraint de lire le fichier en entier pour pouvoir faire le calcul ou est-ce qu'on peut le faire au fur et à mesure ?
+  -> convertir une ligne en une data structure Round (avec champs "whatOpponentWillPlay" et "whatIShouldPlay")
+
+  lire fichier texte et construire un vector de Round, où Round est une structure contenant deux Moves : 
+
+
+
+
+-----------------------------------
+ 
+
+
+
+
+Faire des sommes de scores (entiers)
+  -> on peut utiliser std::accumulate ou std::reduce de la STL
+
+
+
+
+
+c enum pour Move, avec ROCK = 1, PAPER = 2 et SCISSORS = 3
+  -> enum Shape, alias de Move ?
+
+'A' | 'X' -> Move::ROCK
+'B' | 'Y' -> Move::PAPER
+'C' | 'Z' -> Move::SCISSORS
+
+c enum pour Outcome, avec LOST = 0, DRAW = 3 et WON = 6.
+
+La logique du rock-paper-scissors (fonction qui prend coup joueur 1 et coup joueur 2, et qui retourne joueur 1 ou joueur 2)
+  -> cette logique peut être implémentée via une map qui associe un bit flag vers un vainqueur.
+    -> ex: rockPaperScissors.at( (p1Move << 4) | p2Move ) -- WINNER::PLAYER1
+
+
+
+GameInput(move[charA], move[charB]);
+où move est une map qui associe un caractère à un Move (enum)
+
+---------------------------------------
+
+Ne pas oublier qu'on fait d'abord la partie low-level, en utilisant les fonctionnalités propres au langages, notamment la STL, MAIS ENSUITE on wrappera tout dans des fonctions ou classes (design high level, indépendant du langage)
+
+Il faut vraiment que cette séparation entre le design (indépendant du langage) et l'implémentation (dépendant du langage) soit marquée.
+
+
+
+
+Convertir les deux Move du Round en GameInput
+  -> GameInput gameInput = GameInput(round.whatIShouldPlay, round.whatOpponentWillPlay)
+Récupérer la GameOutput à partir de la GameInput
+  -> GameOutput gameOutput = rockPaperScissors.at(gameInput)
+Convertir une GameOutput en Outcome
+  -> outcome.at(gameOutput)

@@ -1,0 +1,4 @@
+
+section -- ID number
+elf -- range of section IDs
+

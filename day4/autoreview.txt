@@ -1,0 +1,8 @@
+
+Ca a été raisonnablement rapide (je trouve), processus itératif, pas de blocages.
+
+J'ai pas hésité à rapidement modéliser le dictionnaire des données (vocabulaire lié au domaine de définition, basé sur l'énoncé du problème, ..)
+
+J'ai pas passé beaucoup de temps à réfléchir au design dans mes notes (peut-être une particularité de python, on peut facilement coder quelque chose qui marche, et debugger petit bout par petit bout)
+
+Ca peut beaucoup ralentir de chercher des infos sur internet, de chercher des infos tout court, toujours faire ce qu'on sait faire (à part si c'est intéressant d'approfondir évidemment)

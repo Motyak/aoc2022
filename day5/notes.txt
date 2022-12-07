@@ -1,13 +1,4 @@
 
-crate
+debugger/comprendre pourquoi on se retrouve dans une situtation où un déplacement est impossible
 
-crate stack
-
-crate stacks
-
-reproduce step 1
-reproduce step 2
-reproduce step 3
-reproduce step 4
-
-faire une fonction générique qui applique une Procedure à la stack (méthode de CrateStack)
+une fois qu'on a le bon résultat, on essaie de faire un refactor + autoreview

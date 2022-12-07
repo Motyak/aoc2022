@@ -4,33 +4,27 @@ from io import StringIO
 import re
 
 def main():
-    # firstCrateStack = CrateStack()
-    # firstCrateStack.push(Crate('A'))
-    # firstCrateStack.push(Crate('B'))
-
-    # secondCrateStack = CrateStack()
-    # secondCrateStack.push(Crate('C'))
-    
-    # thirdCrateStack = CrateStack()
-    # thirdCrateStack.push(Crate('D'))
-
-    # crateStacks = CrateStacks([
-    #     firstCrateStack,
-    #     secondCrateStack,
-    #     thirdCrateStack
-    # ])
-    # print(crateStacks)
-    
-    # procedure = Procedure(3, 1, 2)
-    # print(procedure)
-
     INPUT_FILENAME = "input.txt"
 
     crateStacks, procedures = parseInputFile(INPUT_FILENAME)
 
+    # visualizing data #
+    print(crateStacks, end="\n\n")
+    for procedure in procedures[:3]:
+        print(procedure)
+    print("...")
+    for procedure in procedures[-3:]:
+        print(procedure)
+    print()
 
+    for procedure in procedures:
+        crateStacks.rearrange(procedure)
 
+    print(crateStacks, end="\n\n")
 
+    topCrates = [stack.getTopCrate() for stack in crateStacks]
+    res = ''.join([crate.mark for crate in topCrates])
+    print("res=", res)
 
 
 class Crate:
@@ -51,6 +45,9 @@ class Crate:
 
     def __str__(self):
         return f"[{self.mark}]"
+
+    def __len__(self):
+        return 1
 
 class CrateStack:
     def __init__(self):
@@ -94,10 +91,10 @@ class Procedure:
             return int(match.group(1))
 
         nbOfCratesToMove = parseValue("move", line)
-        originStackIndex = parseValue("from", line)
-        destinationStackIndex = parseValue("to", line)
+        originStackId = parseValue("from", line)
+        destinationStackId = parseValue("to", line)
 
-        return Procedure(nbOfCratesToMove, originStackIndex, destinationStackIndex)
+        return Procedure(nbOfCratesToMove, originStackId - 1, destinationStackId - 1)
 
     def __init__(self, nbOfCratesToMove: int, originStackIndex: int, destinationStackIndex: int):
         assert isinstance(nbOfCratesToMove, int)
@@ -115,8 +112,6 @@ class Procedure:
 
 
 class CrateStacks:
-    SIZE = 3
-
     @staticmethod
     def of(lines: list):
         assert isinstance(lines, list)
@@ -133,11 +128,9 @@ class CrateStacks:
 
         # parsing upward rows #
         for row in range(2, len(lines) +1):
-            # currentRow = lines[-row].split()
             currentRow = re.compile(r".{3}\s?").findall(lines[-row])
             assert len(currentRow) == nbOfStacks
             currentRow = [*map(lambda x: x.strip(), currentRow)]
-            print(len(currentRow))
             assert len(currentRow) == nbOfStacks
             for col in range(nbOfStacks):
                 if currentRow[col] != "":
@@ -155,11 +148,10 @@ class CrateStacks:
 
     def __init__(self, crateStacks: list):
         assert isinstance(crateStacks, list)
-        assert len(crateStacks) == CrateStacks.SIZE
-        for i in range(CrateStacks.SIZE):
-            assert isinstance(crateStacks[i], CrateStack)
+        for stack in crateStacks:
+            assert isinstance(stack, CrateStack)
 
-        self.firstStack, self.secondStack, self.thirdStack = crateStacks
+        self.crateStacks = crateStacks
 
     def __str__(self):
         def pushEmptyCrate(stack):
@@ -176,30 +168,28 @@ class CrateStacks:
         EMPTY_CRATE = "[ ]"
         out = StringIO()
         for _ in range(highestStack):
-            row = [stacks[i].pop() for i in {0, 1, 2}]
+            row = [stacks[i].pop() for i in range(len(self.crateStacks))]
             row = [*map(lambda x: str(x).replace(EMPTY_CRATE, PLACEHOLDER), row)]
             print(*row, file=out)
-        footerRow = [f" {i} " for i in range(1, CrateStacks.SIZE +1)]
+        footerRow = [f" {i} " for i in range(1, len(self.crateStacks) +1)]
         print(*footerRow, file=out, end='')
 
         return out.getvalue()
 
-    def rearrange(self, procedure: Procedure):
-        stack = {
-            0: self.firstStack,
-            1: self.secondStack,
-            2: self.thirdStack
-        }
+    def __iter__(self):
+        return iter(self.crateStacks)
 
+    def rearrange(self, procedure: Procedure):
         def testPreconditions():
             preconditions = CrateStacks.getNecessaryStackSizes(procedure)
-            for stackIndex, necessarySize in preconditions:
-                assert len(stack[stackIndex]) >= necessarySize
+            for stackIndex, necessarySize in preconditions.items():
+                print("DEBUG", len(self.crateStacks[stackIndex]), necessarySize)
+                assert len(self.crateStacks[stackIndex]) >= necessarySize
 
         def procede():
             for _ in range(procedure.nbOfCratesToMove):
-                stack[procedure.destinationStackIndex] = \
-                        stack[procedure.originStackIndex].pop()
+                self.crateStacks[procedure.destinationStackIndex] = \
+                        self.crateStacks[procedure.originStackIndex].pop()
 
         testPreconditions()
         procede()
@@ -209,11 +199,7 @@ class CrateStacks:
 
     # returns copies
     def getStacks(self):
-        return [
-            self.firstStack.__copy__(),
-            self.secondStack.__copy__(),
-            self.thirdStack.__copy__()
-        ]
+        return [stack.__copy__() for stack in self.crateStacks]
 
 def parseListOfProcedures(lines: list):
     assert isinstance(lines, list)
@@ -238,7 +224,7 @@ def parseInputFile(filename: str):
         crateStacks = CrateStacks.of(readUntilEmptyLine(file))
         procedures = parseListOfProcedures(readUntilEmptyLine(file))
     
-    return CrateStacks(crateStacks), procedures
+    return crateStacks, procedures
 
 
 main() if __name__ == '__main__' else None

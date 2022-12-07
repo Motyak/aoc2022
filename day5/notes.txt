@@ -1,0 +1,13 @@
+
+crate
+
+crate stack
+
+crate stacks
+
+reproduce step 1
+reproduce step 2
+reproduce step 3
+reproduce step 4
+
+faire une fonction générique qui applique une Procedure à la stack (méthode de CrateStack)

@@ -43,6 +43,9 @@ class Crate:
 
         self.mark = mark
 
+    def __copy__(self):
+        return Crate(self.mark)
+
     def __str__(self):
         return f"[{self.mark}]"
 
@@ -56,7 +59,7 @@ class CrateStack:
     def __copy__(self):
         res = CrateStack()
         for crate in self.stack:
-            res.push(crate)
+            res.push(crate.__copy__())
         return res
 
     def __str__(self):
@@ -113,8 +116,10 @@ class Procedure:
 
 class CrateStacks:
     @staticmethod
-    def of(lines: list):
+    def of(lines: list[str]):
         assert isinstance(lines, list)
+        for line in lines:
+            assert isinstance(line, str)
 
         # parsing footer row #
         stackIndices = lines[-1].split()
@@ -146,10 +151,10 @@ class CrateStacks:
             procedure.originStackIndex: procedure.nbOfCratesToMove
         }
 
-    def __init__(self, crateStacks: list):
+    def __init__(self, crateStacks: list[CrateStack]):
         assert isinstance(crateStacks, list)
-        for stack in crateStacks:
-            assert isinstance(stack, CrateStack)
+        for crateStack in crateStacks:
+            assert isinstance(crateStack, CrateStack)
 
         self.crateStacks = crateStacks
 
@@ -183,13 +188,13 @@ class CrateStacks:
         # testing preconditions #
         preconditions = CrateStacks.getNecessaryStackSizes(procedure)
         for stackIndex, necessarySize in preconditions.items():
-            print("DEBUG", len(self.crateStacks[stackIndex]), necessarySize)
             assert len(self.crateStacks[stackIndex]) >= necessarySize
 
         # proceeding to rearrange #
         for _ in range(procedure.nbOfCratesToMove):
-            self.crateStacks[procedure.destinationStackIndex] = \
-                    self.crateStacks[procedure.originStackIndex].pop()
+            self.crateStacks[procedure.destinationStackIndex].push(
+                self.crateStacks[procedure.originStackIndex].pop()
+            )
 
     def getTopCrates(self):
         return [stack.getTopCrate() for stack in self.getStacks()]
@@ -198,8 +203,10 @@ class CrateStacks:
     def getStacks(self):
         return [stack.__copy__() for stack in self.crateStacks]
 
-def parseListOfProcedures(lines: list):
+def parseListOfProcedures(lines: list[str]):
     assert isinstance(lines, list)
+    for line in lines:
+        assert isinstance(line, str)
 
     return [Procedure.of(line) for line in lines]
 

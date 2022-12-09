@@ -180,19 +180,16 @@ class CrateStacks:
         return iter(self.crateStacks)
 
     def rearrange(self, procedure: Procedure):
-        def testPreconditions():
-            preconditions = CrateStacks.getNecessaryStackSizes(procedure)
-            for stackIndex, necessarySize in preconditions.items():
-                print("DEBUG", len(self.crateStacks[stackIndex]), necessarySize)
-                assert len(self.crateStacks[stackIndex]) >= necessarySize
+        # testing preconditions #
+        preconditions = CrateStacks.getNecessaryStackSizes(procedure)
+        for stackIndex, necessarySize in preconditions.items():
+            print("DEBUG", len(self.crateStacks[stackIndex]), necessarySize)
+            assert len(self.crateStacks[stackIndex]) >= necessarySize
 
-        def procede():
-            for _ in range(procedure.nbOfCratesToMove):
-                self.crateStacks[procedure.destinationStackIndex] = \
-                        self.crateStacks[procedure.originStackIndex].pop()
-
-        testPreconditions()
-        procede()
+        # proceeding to rearrange #
+        for _ in range(procedure.nbOfCratesToMove):
+            self.crateStacks[procedure.destinationStackIndex] = \
+                    self.crateStacks[procedure.originStackIndex].pop()
 
     def getTopCrates(self):
         return [stack.getTopCrate() for stack in self.getStacks()]

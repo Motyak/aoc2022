@@ -1,0 +1,16 @@
+
+Perdu du temps à debug des trucs
+
+Le code est très long du coup on commence à se perdre facilement (d'autant plus qu'on a toutes les méthodes magiques dans chaque classe/struct)
+
+Les assert m'ont été très utiles pour éviter qu'une erreur ne se propage et qu'on comprenne rapidement la cause de l'erreur.
+
+Ca pourrait être meilleur de créer des procédures à part pour les parsing de chaque classe/struct, puis d'appeler ces procédures depuis les méthodes magiques (pour qu'on puisse lire l'intégralité de classe sur l'écran). De plus, on peut mettre les méthodes magiques à la fin, et mettre le constructeur au début.
+
+Toujours prévoir les constructeurs pratiques
+
+Réfléchir si les paramètres d'une fonction doivent être des références ou des copies.
+
+Eviter de perdre trop de temps à chercher la meilleure manière de faire un truc en python, partir du principe que les cas particuliers ne sont pas gérés et les gérer soi-même. Faire ce qui fait du sens.
+
+Ajouter un debugger python à vscode pourrait aider, mais il ne faut pas se reposer dessus, sinon on abandonne l'idée de comprendre le code et on se contente de résoudre les "problèmes" machinalement, sans comprendre les impacts.

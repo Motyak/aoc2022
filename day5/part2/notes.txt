@@ -1,0 +1,4 @@
+
+debugger/comprendre pourquoi on se retrouve dans une situtation où un déplacement est impossible
+
+une fois qu'on a le bon résultat, on essaie de faire un refactor + autoreview

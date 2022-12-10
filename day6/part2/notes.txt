@@ -1,0 +1,14 @@
+
+
+
+fixing communication device 
+
+datastream buffer
+  -> ex: mjqjpqmgbljsphdztnvjfqwrcgsmlb ; marker = jpqm, after 7 characters (mjqjpqm)
+
+first position where 4 different characters
+  -> marker
+
+report number of characters from the beginning of the buffer to the end of the first such four-character marker.
+
+

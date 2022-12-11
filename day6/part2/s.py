@@ -37,10 +37,10 @@ class StrategyGenerator:
             assert isinstance(nextChar, str)
             assert len(nextChar) == 1
 
-            BUFFER_MAX_SIZE = n - 1
+            incompleteBuffer = len(buffer) < (n - len(nextChar))
             containsDuplicates = lambda x: len(x) != len(set(x))
-            return len(buffer) < BUFFER_MAX_SIZE \
-                or containsDuplicates(buffer[-BUFFER_MAX_SIZE:] + nextChar)
+            return incompleteBuffer \
+                or containsDuplicates((buffer + nextChar)[-n:])
         
         return strategy
 
@@ -70,23 +70,36 @@ def StartMarker(markerSize: int):
             assert isinstance(dataStream, Generator)
 
             MARKER_SIZE = StartMarkerImpl.MARKER_SIZE
-            BUFFER_MAX_SIZE = StartMarkerImpl.MARKER_SIZE
             STRATEGY = StartMarkerImpl.STRATEGY
 
             buffer = ""
+            nextChar: str[1]
             position = 0
-            nextChar = next(dataStream, None)
-            while nextChar and STRATEGY(buffer, nextChar):
-                buffer = buffer[-BUFFER_MAX_SIZE:] + nextChar
+            
+            while True:
+                nextChar = next(dataStream, None)
+
+                if not nextChar:
+                    if len(buffer) < MARKER_SIZE:
+                        raise NotEnoughCharactersException()
+                    else: # if len(buffer) == MARKER_SIZE
+                        return StartMarkerImpl(marker=buffer, position=position)
+
+                if not STRATEGY(buffer, nextChar):
+                    return StartMarkerImpl(
+                        marker= (buffer + nextChar)[-MARKER_SIZE:],
+                        position= position + len(nextChar)
+                    )
+
+                buffer += nextChar
                 position += 1
-                nextChar = next(dataStream)
-            position += 1
-
-            marker = (buffer + nextChar)[-MARKER_SIZE:]
-
-            return StartMarkerImpl(marker, position)
     # -- end of class StartMarkerImpl
 
     return StartMarkerImpl
+
+class NotEnoughCharactersException(Exception):
+    def __init__(self):
+        super().__init__("Not enough characters to build a valid start marker")
+
 
 main() if __name__ == "__main__" else None

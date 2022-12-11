@@ -1,5 +1,15 @@
+Déclaration/Initialisation des variables:
+buffer: initialisé avec une string vide
+nextChar: déclarant en tant que caractère
+position: initialisé à 0
 
-
-On veut refaire les algos
-
-
+4 scénarios différents dans une itération:
+- end of stream ET le buffer ne contient pas assez de caractères pour créer une StartMark valide
+  => on lève une exception
+- end of stream ET le buffer contient tout juste assez de caractères pour créer une StartMark valide
+  => on créé une StartMark en passant le contenu du buffer en marker
+- non end of stream MAIS fin de start mark (reporté par la strategy)
+  => on créé une StartMark en passant les n (où n correspond à la taille de la mark) derniers caractères de (contenu du buffer + nextChar) et position + 1 (puisqu'on a ajouté nextChar à la mark)
+- non end of stream ET non fin de start mark
+  => on continue à itérer -- on append le nextChar au buffer et on incrémente la position
+  

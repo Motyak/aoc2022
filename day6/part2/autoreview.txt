@@ -1,0 +1,5 @@
+
+Ce qui m'a vraiment aidé: faire des tests fonctionnels (tester des inputs custom)
+  -> je devrais utiliser mon "framework" de test pour faciliter/accélérer ce processus (mais je ne sais pas comment je pourrais faire pour tester l'output en cas d'exception, en faire des tests manuels j'imagine ?)
+
+

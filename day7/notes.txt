@@ -1,0 +1,8 @@
+
+Pour moi, un dossier c'est juste un fichier dont le nom termine par '/' et qui a comme taille 0.
+
+RegularFile et Directory héritent de File.
+
+Un RegularFile n'a pas de parentDirAbsPath si on ne construit pas de Directory avec, ça n'a pas de sens. On devrait pouvoir créer un RegularFile avant de l'ajouter à un Directory, du coup on veut pas mettre de abs path dans le constructeur du RegularFile, ça sera setté de l'extérieur lorsqu'on créera des Directory.
+
+On devrait ne pouvoir créer des RegularFile qu'à partir d'un Directory (avec une méthode style addRegularFile() et addSubDirectory())

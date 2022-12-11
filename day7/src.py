@@ -12,15 +12,15 @@ def main():
     #     dir.addFile(file)
     #     print(dir)
     #     print(list(dir.files)[0])
-        # dir.addRegularFile(file) # FileAlreadyExistException
+        # dir.addFile(file) # FileAlreadyExistException
 
     if True:
         fileA = RegularFile(name="file.a", parentDirAbsPath="/", size=13)
         fileB = RegularFile(name="file.b", parentDirAbsPath="/", size=37)
         dir = Directory(name="dir/", parentDirAbsPath="/", files = {fileA, fileB})
-        print(dir)
         outputDir = EmptyDirectory(name="new/", parentDirAbsPath="/")
         outputDir.addFile(dir)
+        outputDir.addFile(fileA)
         print(outputDir)
 
     pass
@@ -41,20 +41,16 @@ class File:
         self._size = size
 
     def __str__(self, recursionDepth: int = 0):
-        out = StringIO()
-
-        if isinstance(self, Directory):
+        out = f"- {self.parentDirAbsPath}{self.name} {self.getSize()}"
+        if isinstance(self, Directory) and len(self.files) != 0:
             recursionDepth += 1
-            print(f"- {self.parentDirAbsPath}{self.name}", file=out)
             SPACE = ' '
-            INDENT = 2 * SPACE
-            for file in sorted(self.files):
-                print(f"{INDENT * recursionDepth}{file.__str__(recursionDepth)}", file=out)
-        
-        else: # isinstance(self, RegularFile)
-            print(f"-- {self.parentDirAbsPath}{self.name} {self.getSize()} ", end="", file=out)
+            INDENT = 4 * SPACE
+            fileList = [f"{INDENT * recursionDepth}{file.__str__(recursionDepth)}" \
+                for file in sorted(self.files)]
+            out += "\n" + "\n".join(fileList)
 
-        return out.getvalue()
+        return out
 
     def __eq__(self, other):
         return isinstance(other, self.__class__) \
